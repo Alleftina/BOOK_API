@@ -13,3 +13,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Создание экземпляра класса Base для определения моделей
 Base = declarative_base()
+
+
+def get_session():
+    with SessionLocal() as session:
+        yield session
