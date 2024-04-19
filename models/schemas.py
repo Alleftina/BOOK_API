@@ -1,15 +1,21 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
 
-class Author(BaseModel):
+
+class AuthorName(BaseModel):
+    names: List[str]
+
+
+class AuthorSchema(BaseModel):
     id: int
     name: str
 
 
-class Book(BaseModel):
+class BookSchema(BaseModel):
     id: int
     title: str
     description: str
-    authors: List[str]
+    authors: Optional[List[AuthorSchema]]
+

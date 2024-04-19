@@ -1,5 +1,5 @@
 from sqlalchemy import MetaData, String, TIMESTAMP, ForeignKey, Table, Column, Integer
-from database.connection import Base
+from db.connection import Base
 from sqlalchemy.orm import relationship
 
 metadata = MetaData()
