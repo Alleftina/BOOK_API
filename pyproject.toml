@@ -1,0 +1,3 @@
+[tool.pythest.ini_option]
+pythonpath = ['.']
+asyncio_mode='auto'
