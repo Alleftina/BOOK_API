@@ -2,7 +2,6 @@ from typing import List
 from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 from db.connection import get_session
-from models.models import Author
 from models.schemas import AuthorSchema
 from service.authors_service import get_all_authors, create_new_author
 

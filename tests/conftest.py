@@ -2,31 +2,36 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
+from sqlalchemy_utils import database_exists, drop_database, create_database
 
-from models.models import metadata
+from db.connection import Base
+
 from main import app
 from utils.config import DATABASE_URL_TEST
 
 
 engine_test = create_engine(DATABASE_URL_TEST)
 SessionLocal = sessionmaker(bind=engine_test)
-metadata.create_all(bind=engine_test)
 
 
-@pytest.fixture(autouse=True, scope='function')
+
+
+@pytest.fixture(scope="session")
+def client():
+    with TestClient(app) as c:
+        yield c
+
+
+@pytest.fixture(scope="session", autouse=True)
 def db():
-    metadata.create_all(bind=engine_test)
+    Base.metadata.create_all(bind=engine_test)
     yield
-    metadata.drop_all(bind=engine_test)
+    Base.metadata.drop_all(bind=engine_test, checkfirst=True)
 
 
 @pytest.fixture
 def session(db):
+    SessionLocal = sessionmaker(bind=engine_test)
     session = SessionLocal()
     yield session
     session.close()
-
-
-@pytest.fixture
-def client():
-    return TestClient(app)

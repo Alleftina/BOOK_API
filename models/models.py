@@ -1,4 +1,4 @@
-from sqlalchemy import MetaData, String, TIMESTAMP, ForeignKey, Table, Column, Integer
+from sqlalchemy import MetaData, String, ForeignKey, Table, Column, Integer
 from db.connection import Base
 from sqlalchemy.orm import relationship
 
